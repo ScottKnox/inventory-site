@@ -15,7 +15,7 @@
     <body>
 <h3>Front Loader</h3>
 <img src="" alt="loader-pic" />
-<p>Count: <b>1</b></p>
+<p>Count: <b>{{$product->count}}</b></p>
 <p>Price: $12.00</p>
     </body>
 </html>
