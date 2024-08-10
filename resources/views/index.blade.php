@@ -13,9 +13,44 @@
         <title>Inventory Site</title>
     </head>
     <body>
-<h3>Front Loader</h3>
-<img src="" alt="loader-pic" />
-<p>Count: <b>{{$product->count}}</b></p>
-<p>Price: $12.00</p>
+        <form method="POST" name="create-form" action="/products">
+            @csrf
+            <label for="name">Name: </label>
+            <input name="name" type="text" />
+            <label for="description">Description: </label>
+            <input name="description" type="text" />
+            <label for="count">Count: </label>
+            <input name="count" type="text" />
+            <label for="price">Price: </label>
+            <input name="price" type="text" />
+            <br/><br/>
+            <button type="submit">Create</button>
+        </form>
+            @foreach ($products as $product)
+            <form method="POST" name="{{$product->name}}-delete-form" action="/products/{{$product->id}}">
+                @csrf
+                @method('DELETE')
+                <h3>{{$product->name}}</h3>
+                <p>{{$product->description}}</p>
+                <img src="" alt="loader-pic" />
+                <p>Count: <b>{{$product->count}}</b></p>
+                <p>Price: {{$product->price}}</p>
+                <button type="submit">Delete</button>
+            </form>
+            <form method="POST" name="{{$product->name}}-update-form" action="/products/{{$product->id}}">
+                @csrf
+                @method('PUT')
+                <label for="name">Name: </label>
+                <input name="name" type="text" />
+                <label for="description">Description: </label>
+                <input name="description" type="text" />
+                <label for="count">Count: </label>
+                <input name="count" type="text" />
+                <label for="price">Price: </label>
+                <input name="price" type="text" />
+                <br/><br/>
+                <button type="submit">Update</button>
+            </form>
+            @endforeach
     </body>
 </html>

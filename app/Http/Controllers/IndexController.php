@@ -15,11 +15,11 @@ class IndexController extends BaseController
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
     public function index(): View {
-        DB::insert('insert into products (id, name, description, count, price) values (?, ?, ?, ?, ?)', [3, 'Tonka Truck', 'description', 1, 10000.00]);
-        $products = DB::select('select * from products where id = ?', [1]);
+        //DB::insert('insert into products (id, name, description, count, price) values (?, ?, ?, ?, ?)', [5, 'Tonka Truck', 'description', 1, 10000.00]);
+        $products = DB::table('products')->get();
 
-        return view('welcome', [
-            'product' => $products[0]
+        return view('index', [
+            'products' => $products
         ]);
     }
 }
