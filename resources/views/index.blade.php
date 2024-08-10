@@ -13,6 +13,8 @@
         <title>Inventory Site</title>
     </head>
     <body>
+        <h1>Inventory Site</h1>
+        @if ($user)
         <form method="POST" name="create-form" action="/products">
             @csrf
             <label for="name">Name: </label>
@@ -26,6 +28,7 @@
             <br/><br/>
             <button type="submit">Create</button>
         </form>
+        @endif
             @foreach ($products as $product)
             <form method="POST" name="{{$product->name}}-delete-form" action="/products/{{$product->id}}">
                 @csrf
@@ -35,7 +38,9 @@
                 <img src="" alt="loader-pic" />
                 <p>Count: <b>{{$product->count}}</b></p>
                 <p>Price: {{$product->price}}</p>
+                @if ($user)
                 <button type="submit">Delete</button>
+                @endif
             </form>
             <form method="POST" name="{{$product->name}}-update-form" action="/products/{{$product->id}}">
                 @csrf
@@ -49,8 +54,29 @@
                 <label for="price">Price: </label>
                 <input name="price" type="text" />
                 <br/><br/>
+                @if ($user)
                 <button type="submit">Update</button>
+                @endif
             </form>
             @endforeach
+<br/><br/>
+            @unless ($user)
+            <form method="POST" name="login-form" action="/login">
+                @csrf
+                <label for="email">Email: </label>
+                <input name="email" type="text" />
+                <label for="password">Password: </label>
+                <input name="password" type="password" />
+                <br/><br/>
+                <button type="submit">Login</button>
+            </form>
+            @endunless
+
+            @if ($user)
+            <form method="POST" name="logout-form" action="/logout">
+                @csrf
+                <button type="submit">Logout</button>
+            </form>
+            @endif
     </body>
 </html>

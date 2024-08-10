@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\IndexController;
+use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
@@ -16,6 +17,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [IndexController::class, 'index']);
+
+Route::post('/login', [LoginController::class, 'authenticate']);
+Route::get('/register', [LoginController::class, 'register']);
+Route::post('/logout', [LoginController::class, 'logout']);
 
 Route::post('/products', [ProductController::class, 'create']);
 Route::put('/products/{id}', [ProductController::class, 'update']);
